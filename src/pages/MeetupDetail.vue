@@ -141,26 +141,34 @@
 
 <script>
 import axios from 'axios'
+import {mapActions , mapState} from 'vuex'
     export default {
       computed:{
-            
-           meetupdetail(){
-            return  this.$store.state.meetupById
-            },
-            threads(){
-             return this.$store.state.threads
-            },
+            ...mapState({
+              meetupdetail:state => state.meetupById,
+              threads:state => state.threads
+            }),
+          //  meetupdetail(){
+          //   return  this.$store.state.meetupById
+          //   },
+          //   threads(){
+          //    return this.$store.state.threads
+          //   },
             meetupCreator(){
                 return this.meetupdetail.meetupCreator || {}
             },
         },
         created(){
             const meetupId = this.$route.params.id
-
-            this.$store.dispatch('fetchMeetupsDetail',meetupId)
-            this.$store.dispatch('fetchThreads',meetupId)
+            this.fetchMeetupsDetail(meetupId)
+            this.fetchThreads(meetupId)
+            // this.$store.dispatch('fetchMeetupsDetail',meetupId)
+            // this.$store.dispatch('fetchThreads',meetupId)
             
         },
+        methods:{
+          ...mapActions(['fetchMeetupsDetail','fetchThreads'])
+        }
         
     }
 </script>
