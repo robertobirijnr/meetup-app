@@ -142,32 +142,26 @@
 <script>
 import axios from 'axios'
     export default {
-        data() {
-            return {
-                meetupdetail: {},
-                threads:[]
-            }
+      computed:{
+            
+           meetupdetail(){
+            return  this.$store.state.meetupById
+            },
+            threads(){
+             return this.$store.state.threads
+            },
+            meetupCreator(){
+                return this.meetupdetail.meetupCreator || {}
+            },
         },
         created(){
             const meetupId = this.$route.params.id
 
-            axios.get(`/api/v1/meetups/${meetupId}`)
-            .then(response=>{
-                this.meetupdetail = response.data
-                console.log(response.data)
-            })
-
-            axios.get(`/api/v1/threads?meetupId=${meetupId}`)
-            .then(response=>{
-              this.threads = response.data
-              console.log(response.data)
-            })
+            this.$store.dispatch('fetchMeetupsDetail',meetupId)
+            this.$store.dispatch('fetchThreads',meetupId)
+            
         },
-        computed:{
-            meetupCreator(){
-                return this.meetupdetail.meetupCreator || ''
-            }
-        }
+        
     }
 </script>
 

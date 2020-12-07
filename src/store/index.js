@@ -9,7 +9,7 @@ export default new Vuex.Store({
     state:{
         categories:[],
         meetups:[],
-        meetupdetail:{},
+        meetupById:{},
         threads:[],
         meetup: []
     },
@@ -37,8 +37,33 @@ export default new Vuex.Store({
             .catch(err=>{
                 alert(err)
             })
-            }
-        },
+         },
+
+         fetchMeetupsDetail({commit},meetupId){
+            axios.get(`/api/v1/meetups/${meetupId}`)
+            .then(response=>{
+               commit("SET_MEETUP_DETAILS",response.data)
+            })
+            .catch(err=>{
+                alert(err)
+            })
+         },
+         fetchThreads({commit},meetupId){
+            axios.get(`/api/v1/threads?meetupId=${meetupId}`)
+            .then(response=>{
+             commit("SET_MEETUP_THREADS",response.data)
+            })
+            .catch(err=>{
+                alert(err)
+            })
+         },
+         fetchMeetup({commit}){
+            axios.get('/api/v1/meetups')
+            .then(res => {
+             commit("SET_MEETUP",res.data)
+            })
+         }
+     },
     
 
     mutations:{
@@ -47,6 +72,15 @@ export default new Vuex.Store({
         },
         SET_CATEGORIES(state,categories){
             state.categories = categories
+        },
+        SET_MEETUP_DETAILS(state,meetupBy){
+            state.meetupById = meetupBy
+        },
+        SET_MEETUP_THREADS(state,threads){
+            state.threads = threads
+        },
+        SET_MEETUP(state,meetup){
+            state.meetup = meetup
         }
     }
 })
