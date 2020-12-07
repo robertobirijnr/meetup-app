@@ -19,6 +19,11 @@ const router = new Router({
             path:'/find',
             name:'MeetupFinder',
             component:()=>import('../pages/MeetupFind.vue')
+        },
+        {
+            path:'*',
+            name:'MeetupNotFound',
+            component:()=>import('../pages/NotFoundPage.vue')
         }
     ],
     mode:'history'
