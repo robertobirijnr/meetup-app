@@ -14,6 +14,11 @@ const router = new Router({
             path:'/meetups/:id',
             name:'MeetupDetails',
             component:()=>import('../pages/MeetupDetail.vue')
+        },
+        {
+            path:'/find',
+            name:'MeetupFinder',
+            component:()=>import('../pages/MeetupFind.vue')
         }
     ],
     mode:'history'
