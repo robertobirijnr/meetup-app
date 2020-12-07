@@ -35,30 +35,20 @@ import MeetupItem from '../components/MeetupItem.vue'
       CategoryItem,
         MeetupItem
     },
-     data(){
-        return{
-         categories:[],
-         meetups:[]
+     
+     computed:{
+       meetups(){
+         return this.$store.state.meetups
+       },
+       categories(){
+         return this.$store.state.categories
        }
      },
 
     created(){
-      axios.get('/api/v1/meetups')
-      .then(response =>{
-        this.meetups = response.data
-      })
-      .catch(err =>{
-        console.log(err)
-      })
-
-      axios.get('/api/v1/categories')
-      .then(response =>{
-        this.categories = response.data
-      })
-      .catch(err=>{
-        alert(err)
-      })
-    }
+      this.$store.dispatch('fetchMeetups')
+       this.$store.dispatch('fetchCategories')
+  }
   }
 </script>
 
