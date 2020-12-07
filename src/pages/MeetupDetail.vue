@@ -145,8 +145,8 @@ import {mapActions , mapState} from 'vuex'
     export default {
       computed:{
             ...mapState({
-              meetupdetail:state => state.meetupById,
-              threads:state => state.threads
+              meetupdetail:state => state.meetups.meetupById,
+              threads:state => state.thread.threads
             }),
           //  meetupdetail(){
           //   return  this.$store.state.meetupById

@@ -64,7 +64,7 @@
     },
     computed:{
       meetups(){
-        return this.$store.state.meetup
+        return this.$store.state.meetups.meetup
       }
     },
     methods:{

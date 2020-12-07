@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import {mapActions, mapState} from 'vuex'
 import CategoryItem from '../components/shared/CategoryItem.vue'
 import MeetupItem from '../components/MeetupItem.vue'
@@ -39,8 +38,8 @@ import MeetupItem from '../components/MeetupItem.vue'
      
      computed:{
        ...mapState({
-         meetups:state => state.meetups,
-         categories:state => state.categories
+         meetups:state => state.meetups.meetups,
+         categories:state => state.categories.categories
        })
       
      },
