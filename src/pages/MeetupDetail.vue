@@ -4,24 +4,20 @@
       <div class="hero-body">
         <div class="container">
           <h2 class="subtitle">
-            <!-- TODO: meetup startDate -->
             {{meetupdetail.startDate |formatDate("YYYY/MM/DD")}}
           </h2>
           <h1 class="title">
-            <!-- TODO: title -->
            {{meetupdetail.title}}
           </h1>
           <article class="media v-center">
             <figure class="media-left">
               <p class="image is-64x64">
-                <!-- OPTIONAL: meetupCreator avatar -->
                 <img class="is-rounded" :src="meetupCreator.avatar">
               </p>
             </figure>
             <div class="media-content">
               <div class="content">
                 <p>
-                  <!-- OPTIONAL: meetupCreator name -->
                   Created by <strong>{{meetupCreator.name}}</strong>
                 </p>
               </div>
@@ -42,22 +38,18 @@
               <div class="meetup-side-box">
                 <div class="meetup-side-box-date m-b-sm">
                   <p><b>Date</b></p>
-                  <!-- TODO: meetup startDate -->
                   <p>{{meetupdetail.startDate |formatDate("YYYY/MM/DD")}}</p>
                 </div>
                 <div class="meetup-side-box-date m-b-sm">
                   <p><b>Time</b></p>
-                  <!-- TODO: meetup timeFrom - timeTo -->
                   <span>{{meetupdetail.timeFrom }}</span> - {{meetupdetail.timeTo }}<span></span>
                 </div>
                 <div class="meetup-side-box-place m-b-sm">
                   <p><b>How to find us</b></p>
-                  <!-- TODO: meetup location -->
                   <p>{{meetupdetail.location}}</p>
                 </div>
                 <div class="meetup-side-box-more-info">
                   <p><b>Additional Info</b></p>
-                  <!-- TODO: meetup shortInfo -->
                   <p>{{meetupdetail.shortInfo}}</p>
                 </div>
               </div>
@@ -69,16 +61,18 @@
                 Threads
               </p>
               <ul>
-                <li>Should I follow some dresscode ?</li>
+                <li v-for="thread in threads" :key="thread.index">
+                  {{thread.index}}
+                </li>
               </ul>
               <p class="menu-label">
                 Who is Going
               </p>
               <div class="columns is-multiline is-mobile">
                 <!-- Joined People Images Here -->
-                <div class="column is-3">
+                <div v-for="person in meetupdetail.joinedPeople" :key="person._id" class="column is-3">
                   <figure class="image is-64x64">
-                    <img class="is-rounded" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuqyc3j2s3bL4DIkC8uC9h0rcAdsDXcwJPNh8XHWbLQfHbOpVU" alt="Image">
+                    <img class="is-rounded" :src="person.avatar" alt="Image">
                   </figure>
                 </div>
               </div>
@@ -99,9 +93,9 @@
             <!-- Thread List START -->
             <div class="content is-medium">
               <h3 class="title is-3">Threads</h3>
-              <div class="box">
+              <div v-for="thread in threads" :key="thread._id" class="box">
                 <!-- Thread title -->
-                <h4 id="const" class="title is-3">Should I follow some dresscode ?</h4>
+                <h4 id="const" class="title is-3">{{thread.title}}</h4>
                 <!-- Create new post, handle later -->
                 <form class="post-create">
                   <div class="field">
@@ -113,22 +107,22 @@
                 </form>
                 <!-- Create new post END, handle later -->
                 <!-- Posts START -->
-                <article class="media post-item">
+                <article v-for="post in thread.posts" :key="post._id" class="media post-item">
                   <figure class="media-left is-rounded user-image">
                     <p class="image is-32x32">
-                      <img class="is-rounded" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuqyc3j2s3bL4DIkC8uC9h0rcAdsDXcwJPNh8XHWbLQfHbOpVU">
+                      <img class="is-rounded" :src="post.user.avarta">
                     </p>
                   </figure>
                   <div class="media-content">
                     <div class="content is-medium">
                       <div class="post-content">
                         <!-- Post User Name -->
-                        <strong class="author">Filip Jerga</strong>
+                        <strong class="author">{{post.user.name}}</strong>
                         {{' '}}
                         <!-- Post Updated at -->
-                        <small class="post-time">13th Jan</small>
+                        <small class="post-time">{{post.updatedAt | formatDate("LLL")}}</small>
                         <br>
-                        <p class="post-content-message">It's up to you (:</p>
+                        <p class="post-content-message">{{post.text}}</p>
                       </div>
                     </div>
                   </div>
@@ -150,7 +144,8 @@ import axios from 'axios'
     export default {
         data() {
             return {
-                meetupdetail: {}
+                meetupdetail: {},
+                threads:[]
             }
         },
         created(){
@@ -161,10 +156,16 @@ import axios from 'axios'
                 this.meetupdetail = response.data
                 console.log(response.data)
             })
+
+            axios.get(`/api/v1/threads?meetupId=${meetupId}`)
+            .then(response=>{
+              this.threads = response.data
+              console.log(response.data)
+            })
         },
         computed:{
             meetupCreator(){
-                return this.meetupdetail.meetupCreator
+                return this.meetupdetail.meetupCreator || ''
             }
         }
     }
