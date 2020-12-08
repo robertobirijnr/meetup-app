@@ -11,3 +11,44 @@ exports.getUsers = function(req, res) {
     return res.json(users);
   });
 }
+
+
+exports.register = (req,res) =>{
+
+  const regData = req.body
+
+  if(!regData.email){
+    return res.status(422).json({
+      errors:{
+        email:'is required'
+      }
+    })
+  }
+
+  if(!regData.password){
+    return res.status(422).json({
+      errors:{
+        password:'password is required'
+      }
+    })
+  }
+
+  if(regData.password !== regData.passwordConfirmation){
+    return res.status(422).json({
+      errors:{
+        password:'password do not match'
+      }
+    })
+  }
+
+  const user = new User(regData);
+
+  user.save((err,saveUser)=>{
+    if(err){
+      return res.status(422).json({
+        err
+      })
+    }
+    return res.json(saveUser)
+  })
+}
