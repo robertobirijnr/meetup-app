@@ -57,15 +57,18 @@
 
 <script>
   import axios from 'axios'
-  import {mapActions} from 'vuex'
+  import {mapActions, mapState} from 'vuex'
   export default {
     created () {
      this.fetchMeetup()
     },
     computed:{
-      meetups(){
-        return this.$store.state.meetups.meetup
-      }
+      ...mapState({
+        meetups:state => state.meetups.meetup
+      })
+      // meetups(){
+      //   return this.$store.state.meetups.meetup
+      // }
     },
     methods:{
       ...mapActions(['fetchMeetup'])

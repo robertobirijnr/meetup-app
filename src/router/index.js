@@ -21,6 +21,16 @@ const router = new Router({
             component:()=>import('../pages/MeetupFind.vue')
         },
         {
+            path:'/register',
+            name:'Register',
+            component:()=>import('../pages/Register.vue')
+        },
+        {
+            path:'/login',
+            name:'Login',
+            component:()=>import('../pages/Login.vue')
+        },
+        {
             path:'*',
             name:'MeetupNotFound',
             component:()=>import('../pages/NotFoundPage.vue')
