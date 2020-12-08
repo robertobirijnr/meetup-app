@@ -1,7 +1,7 @@
 <template>
   <div>
     <AppHero />
-    <div class="container">
+    <div v-if="loading" class="container">
       <section class="section">
       <div class="m-b-lg">
         <h1 class="title is-inline">Featured Meetups in "Location"</h1>
@@ -22,6 +22,11 @@
         </div>
       </section>
     </div>
+    <center v-else>
+      <div class="container" >
+      <AppSpinner/>
+    </div>
+    </center>
   </div>
 </template>
 
@@ -35,7 +40,11 @@ import MeetupItem from '../components/MeetupItem.vue'
       CategoryItem,
         MeetupItem
     },
-     
+     data() {
+       return {
+         loading: false
+       }
+     },
      computed:{
        ...mapState({
          meetups:state => state.meetups.meetups,
@@ -45,8 +54,16 @@ import MeetupItem from '../components/MeetupItem.vue'
      },
 
     created(){
-      this.fetchMeetups()
-      this.fetchCategories()
+      Promise.all([this.fetchMeetups(),this.fetchCategories()])
+      .then(()=>this.loading = true)
+      
+      // this.fetchMeetups()
+      // .then(()=>{
+      //   return this.fetchCategories()
+      // })
+      // .then(()=>{
+      //   this.loading = true
+      // })
   },
 
   methods:{

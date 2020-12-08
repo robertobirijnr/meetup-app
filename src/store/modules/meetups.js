@@ -9,7 +9,7 @@ export const state ={
 
 export const actions ={
     fetchMeetups({commit}){
-        axios.get('/api/v1/meetups')
+      return  axios.get('/api/v1/meetups')
         .then(response =>{
             commit('SET_MEETUPS',response.data)
         })
@@ -19,7 +19,7 @@ export const actions ={
 
      },
      fetchMeetupsDetail({commit},meetupId){
-        axios.get(`/api/v1/meetups/${meetupId}`)
+      return  axios.get(`/api/v1/meetups/${meetupId}`)
         .then(response=>{
            commit("SET_MEETUP_DETAILS",response.data)
         })
@@ -28,7 +28,7 @@ export const actions ={
         })
      },
      fetchMeetup({commit}){
-        axios.get('/api/v1/meetups')
+      return  axios.get('/api/v1/meetups')
         .then(res => {
          commit("SET_MEETUP",res.data)
         })
