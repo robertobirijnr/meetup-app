@@ -14,6 +14,7 @@
                 <div class="control">
                   <input class="input is-large"
                          type="text"
+                         v-model="form.username"
                          placeholder="Username">
                 </div>
               </div>
@@ -21,6 +22,7 @@
                 <div class="control">
                   <input class="input is-large"
                          type="text"
+                         v-model="form.name"
                          placeholder="Name">
                 </div>
               </div>
@@ -28,6 +30,7 @@
                 <div class="control">
                   <input class="input is-large"
                          type="email"
+                         v-model="form.email"
                          placeholder="Your Email">
                 </div>
               </div>
@@ -35,6 +38,7 @@
                 <div class="control">
                   <input class="input is-large"
                          type="text"
+                         v-model="form.avatar"
                          placeholder="Avatar"
                          autocomplete="">
                 </div>
@@ -43,6 +47,7 @@
                 <div class="control">
                   <input class="input is-large"
                          type="password"
+                         v-model="form.password"
                          placeholder="Your Password"
                          autocomplete="new-password">
                 </div>
@@ -51,11 +56,12 @@
                 <div class="control">
                   <input class="input is-large"
                          type="password"
+                         v-model="form.passwordConfirmation"
                          placeholder="Password Confirmation"
                          autocomplete="off">
                 </div>
               </div>
-              <button type="submit" class="button is-block is-info is-large is-fullwidth">Register</button>
+              <button type="submit" @click.prevent="Register" class="button is-block is-info is-large is-fullwidth">Register</button>
             </form>
           </div>
           <p class="has-text-grey">
@@ -71,6 +77,23 @@
 
 <script>
   export default {
+      data() {
+          return {
+              form: {
+                  username:null,
+                  name:null,
+                  email:null,
+                  avatar:null,
+                  password:null,
+                  passwordConfirmation:null
+              }
+          }
+      },
+      methods:{
+          Register(){
+
+          }
+      }
   }
 </script>
 

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuelidate from 'vuelidate'
 import App from './App.vue'
 import AppDropdown from './components/shared/AppDropdown'
 import AppHero from './components/shared/AppHero'
@@ -13,6 +14,7 @@ Vue.component('AppHero', AppHero)
 Vue.component('AppDropdown', AppDropdown)
 Vue.component('AppSpinner',AppSpinner)
 
+Vue.use(Vuelidate)
 Vue.filter('capitalize', function(value){
   if(value && typeof value === 'string'){
     return value.charAt(0).toUpperCase() + value.slice(1)
@@ -28,6 +30,7 @@ Vue.filter('formatDate',function(value,formatType = 'LL'){
 
 new Vue({
   router,
+  Vuelidate,
   store,
   render: h => h(App),
 }).$mount('#app')

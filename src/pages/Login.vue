@@ -9,25 +9,38 @@
             <figure class="avatar">
                 <img src="https://placehold.it/128x128">
             </figure>
-            <form>
+            <form >
               <div class="field">
                 <div class="control">
                   <input class="input is-large"
+                        @blur="$v.form.email.$touch()"
                          type="email"
                          placeholder="Your Email"
                          autofocus=""
+                         v-model="form.email"
                          autocomplete="email">
+                         <div v-if="$v.form.email.$error" class="form-error">
+                             <span v-if="!$v.form.email.required"  class="help is-danger">Email is required</span>
+                             <span v-if="!$v.form.email.email" class="help is-danger">Email is not valid</span>
+                         </div>
                 </div>
               </div>
               <div class="field">
                 <div class="control">
                   <input class="input is-large"
+                        @blur="$v.form.password.$touch()"
                          type="password"
+                         v-model="form.password"
                          placeholder="Your Password"
                          autocomplete="current-password">
+                         <div v-if="$v.form.password.$error" class="form-error">
+                             <div v-if="!$v.form.password.required" class="help is-danger">
+                                 Password is required
+                             </div>
+                         </div>
                 </div>
               </div>
-              <button class="button is-block is-info is-large is-fullwidth">Login</button>
+              <button @click.prevent="Login" class="button is-block is-info is-large is-fullwidth">Login</button>
             </form>
           </div>
           <p class="has-text-grey">
@@ -42,7 +55,32 @@
 </template>
 
 <script>
+import { required, email} from 'vuelidate/lib/validators'
   export default {
+      data() {
+          return {
+              form:{
+                  email:null,
+                  password:null
+              }
+          }
+      },
+      validations:{
+        form:{
+            email:{
+                required,
+                email
+            },
+            password:{
+                required
+            }
+            }
+      },
+      methods:{
+          Login(){
+              this.$v.form.$touch()
+          }
+      }
   }
 </script>
 
