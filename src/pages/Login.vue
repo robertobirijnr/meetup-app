@@ -40,7 +40,10 @@
                          </div>
                 </div>
               </div>
-              <button @click.prevent="Login" class="button is-block is-info is-large is-fullwidth">Login</button>
+              <button
+              :disabled="isFormInvalid"
+               @click.prevent="Login" 
+               class="button is-block is-info is-large is-fullwidth">Login</button>
             </form>
           </div>
           <p class="has-text-grey">
@@ -75,6 +78,11 @@ import { required, email} from 'vuelidate/lib/validators'
                 required
             }
             }
+      },
+      computed:{
+          isFormInvalid(){
+              return this.$v.form.$invalid
+          }
       },
       methods:{
           Login(){
