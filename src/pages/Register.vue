@@ -167,6 +167,11 @@ import { required, email,minLength,url,sameAs} from 'vuelidate/lib/validators'
       methods:{
           Register(){
               this.$v.form.$touch()
+              this.$store.dispatch("Register",this.form)
+              .then(()=>this.$router.push('/login'))
+              .catch(err=>{
+                console.log(err)
+              })
 
           }
       }

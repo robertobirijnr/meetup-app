@@ -87,6 +87,11 @@ import { required, email} from 'vuelidate/lib/validators'
       methods:{
           Login(){
               this.$v.form.$touch()
+              this.$store.dispatch('Login',this.form)
+              .then(()=>{
+                this.$router.push('/')
+              })
+              .catch(err=>console.log(err))
           }
       }
   }
