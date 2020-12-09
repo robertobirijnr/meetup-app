@@ -40,8 +40,8 @@ app.use(cors())
 app.use(bodyParser.json());
 
 // Only For Session Authentication !
-app.use(session({ secret: config.SESSION_SECRET,
-                  cookie: { maxAge: 3600000 },
+app.use(session({ secret: 'keyboard cat',
+                  cookie: { maxAge: 4800000 },
                   resave: false,
                   saveUninitialized: false,
                   store
@@ -50,8 +50,7 @@ app.use(session({ secret: config.SESSION_SECRET,
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(passport.initialize())
-app.use(passport.session)
+
 
 
 app.use('/api/v1/meetups', meetupsRoutes);
@@ -59,6 +58,8 @@ app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/posts', postsRoutes);
 app.use('/api/v1/threads', threadsRoutes);
 app.use('/api/v1/categories', categoriesRoutes);
+
+require('./services/passport')
 
 const PORT = process.env.PORT || 3001;
 
