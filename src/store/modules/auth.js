@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 export const state ={
-    user:{}
+    user:null
 }
 
 export const getters ={
