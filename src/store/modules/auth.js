@@ -29,26 +29,29 @@ export const getters ={
 }
 
 export const actions ={
-    Register({commit},data){
-       return axios.post("/api/v1/users/register",data)
-        .then(response =>{
-            // commit("REGISTER_USER",data)
-            console.log(response.data)
-        })
-        .catch(err =>{
-            console.log(err)
-        })
-    },
-    Login({commit},data){
-      return  axios.post('/api/v1/users/login',data)
-        .then(response=>{
-            const user = response.data
-            localStorage.setItem('meetup-jwt',user.token)
-            commit('SET_AUTH',user)
-        }).catch(err =>{
-            console.log(err)
-        })
-    },
+    registerUser (context, userData) {
+        return axios.post('/api/v1/users/register', userData)
+          .catch(err => rejectError(err))
+      },
+    // Register({commit},userData){
+    //    return axios.post("/api/v1/users/register",userData)
+    //     .then(response =>{
+    //         // commit("REGISTER_USER",data)
+    //         console.log(response.data)
+    //     })
+    //     .catch(err =>{
+    //         console.log(err)
+    //     })
+    // },
+    loginWithEmailAndPassword ({commit}, userData) {
+        return axios.post('/api/v1/users/login', userData)
+          .then(res => {
+            const user = res.data
+            localStorage.setItem('meetup-jwt', user.token)
+            commit('setAuthUser', user)
+          })
+          .catch(err => rejectError(err))
+      },
     getAuthUser({commit,getters}){
         const authUser = getters['authUser']
         const token = localStorage.getItem('meetup-jwt')

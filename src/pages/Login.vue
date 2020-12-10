@@ -41,7 +41,7 @@
                 </div>
               </div>
               <button
-              :disabled="isFormInvalid"
+              
                @click.prevent="Login" 
                class="button is-block is-info is-large is-fullwidth">Login</button>
             </form>
@@ -87,11 +87,14 @@ import { required, email} from 'vuelidate/lib/validators'
       methods:{
           Login(){
               this.$v.form.$touch()
-              this.$store.dispatch('Login',this.form)
+              this.$store.dispatch('loginWithEmailAndPassword',this.form)
               .then(()=>{
                 this.$router.push('/')
               })
-              .catch(err=>console.log(err))
+              .catch(err=>{
+                this.$toasted.error('Password or Email is wrong',{duration:5000})
+                console.log(err)
+              })
           }
       }
   }

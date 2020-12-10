@@ -105,7 +105,7 @@
                          </div>
                 </div>
               </div>
-              <button type="submit" :disabled="isformValid" @click.prevent="Register" class="button is-block is-info is-large is-fullwidth">Register</button>
+              <button type="submit"  @click.prevent="Register" class="button is-block is-info is-large is-fullwidth">Register</button>
             </form>
           </div>
           <p class="has-text-grey">
@@ -167,7 +167,7 @@ import { required, email,minLength,url,sameAs} from 'vuelidate/lib/validators'
       methods:{
           Register(){
               this.$v.form.$touch()
-              this.$store.dispatch("Register",this.form)
+              this.$store.dispatch("registerUser",this.form)
               .then(()=>this.$router.push('/login'))
               .catch(err=>{
                 console.log(err)

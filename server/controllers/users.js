@@ -93,7 +93,7 @@ exports.login =(req,res,next)=>{
   
     } else {
       return res.status(422).send({errors: {
-        'authentication': 'Ooops, something went wrong!'
+        'message': 'Invalid password or email'
       }})
     }
   })(req,res,next)
