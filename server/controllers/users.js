@@ -19,7 +19,8 @@ exports.getCurrentUser = function (req, res, next) {
     return res.sendStatus(422);
   }
 
-  return res.json(user);
+  // return res.json(user);
+  return res.json(user.toAuthJSON())
 };
 
 exports.register = (req,res) =>{
@@ -87,11 +88,8 @@ exports.login =(req,res,next)=>{
       return next(err)
     }
     if (passportUser) {
-      req.login(passportUser, function (err) {
-        if (err) { next(err); }
-  
-        return res.json(passportUser)
-      });
+      
+      return res.json(passportUser.toAuthJSON())
   
     } else {
       return res.status(422).send({errors: {

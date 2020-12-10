@@ -9,13 +9,13 @@ const passport = require('passport');
 
 
 // Only For Session Authentication !
-const MongoDBStore = require('connect-mongodb-session')(session);
-const store = new MongoDBStore({
-  uri: config.DB_URI,
-  collection: 'meetuperSessions'
-})
+// const MongoDBStore = require('connect-mongodb-session')(session);
+// const store = new MongoDBStore({
+//   uri: config.DB_URI,
+//   collection: 'meetuperSessions'
+// })
 
-store.on('error',(error)=> console.log(error))
+// store.on('error',(error)=> console.log(error))
 
 
 require("./models/meetups");
@@ -40,15 +40,15 @@ app.use(cors())
 app.use(bodyParser.json());
 
 // Only For Session Authentication !
-app.use(session({ secret: 'keyboard cat',
-                  cookie: { maxAge: 4800000 },
-                  resave: false,
-                  saveUninitialized: false,
-                  store
-                }))
+// app.use(session({ secret: 'keyboard cat',
+//                   cookie: { maxAge: 4800000 },
+//                   resave: false,
+//                   saveUninitialized: false,
+//                   store
+//                 }))
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
 
