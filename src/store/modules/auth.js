@@ -79,13 +79,19 @@ export const actions ={
         })
     },
     logout({commit}){
-        return axios.post('/api/v1/users/logout')
-        .then(()=>{
+        // return axios.post('/api/v1/users/logout')
+        // .then(()=>{
+        //     commit('setAuthuser',null)
+        //     return true
+        // })
+        // .catch(err =>{
+        //     console.log(err)
+        // })
+
+        return new Promise((resolve,reject)=>{
+            localStorage.removeItem('meetup-jwt')
             commit('setAuthuser',null)
-            return true
-        })
-        .catch(err =>{
-            console.log(err)
+            resolve(true)
         })
     }
 }
