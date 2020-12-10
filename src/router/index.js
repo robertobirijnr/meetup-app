@@ -1,3 +1,4 @@
+import store from '../store'
 import vue from 'vue'
 import Router from 'vue-router'
 
@@ -9,6 +10,18 @@ const router = new Router({
             path:'/',
             name:'PageHome',
             component:()=>import('../pages/PageHome.vue')
+        },
+        {
+            path:'/meetups/screte',
+            name:'SecretePage',
+            component:()=>import('../pages/SecretePage.vue'),
+            beforeEnter(to,from,next){
+                if(store.getters['auth/isAuthenticated']){
+                    next()
+                }else{
+                    next('/notfound')
+                }
+            }
         },
         {
             path:'/meetups/:id',
@@ -31,10 +44,16 @@ const router = new Router({
             component:()=>import('../pages/Login.vue')
         },
         {
-            path:'*',
+            path:'/notfound',
             name:'MeetupNotFound',
             component:()=>import('../pages/NotFoundPage.vue')
-        }
+        },
+        {
+            path:'*',
+            name:'PageNotAuth',
+            component:()=>import('../pages/PageNotAuth.vue')
+        },
+        
     ],
     mode:'history'
 })

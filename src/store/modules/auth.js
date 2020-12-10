@@ -3,7 +3,8 @@ import axios from 'axios'
 
 
 export const state ={
-    user:null
+    user:null,
+    isAuthenResolve:false
 }
 
 export const getters ={
@@ -39,10 +40,12 @@ export const actions ={
         .then(res =>{
            const user = res.data
            commit('setAuthuser',user)
+           commit("setAuthState",true)
            return user
         })
         .catch(err=>{
             commit('setAuthuser',null)
+            commit('setAuthState',true)
            return undefined
         })
     },
@@ -64,5 +67,8 @@ export const mutations ={
     },
     setAuthuser(state, user){
         return state.user = user
+    },
+    setAuthState(state,setAuthState){
+       return state.isAuthenResolve = setAuthState
     }
 }
