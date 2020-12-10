@@ -34,12 +34,18 @@ const router = new Router({
         {
             path:'/register',
             name:'Register',
-            component:()=>import('../pages/Register.vue')
+            component:()=>import('../pages/Register.vue'),
+            meta:{
+                onlyGuestUser:true
+            }
         },
         {
             path:'/login',
             name:'Login',
-            component:()=>import('../pages/Login.vue')
+            component:()=>import('../pages/Login.vue'),
+            meta:{
+                onlyGuestUser:true
+            }
         },
         {
             path:'/notfound',
@@ -58,15 +64,23 @@ const router = new Router({
 
 router.beforeEach((to,from,next)=>{
     store.dispatch('getAuthUser')
-    .then(authUser =>{
+    .then(() =>{
+        const authenticated = store.getters['isAuthenticated']
         if(to.meta.onlyAuthUser){
-            if(store.getters['isAuthenticated']){
+            if(authenticated){
                 next()
             }else{
                 next('/notfound')
             }
             
-        }else{
+        }else if(to.meta.onlyGuestUser){
+            if(authenticated){
+                next('/')
+            }else{
+                next()
+            }
+        }
+        else{
             next()
         }
         
