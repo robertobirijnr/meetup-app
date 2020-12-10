@@ -1,4 +1,16 @@
 import axios from 'axios'
+import jwt from 'jsonwebtoken'
+import axiosInstance from '../../service/axios'
+
+function checkTokenValidity(token){
+    if(token){
+        const decodedToken = jwt.decode(token)
+
+        return decodedToken && (decodedToken.exp * 1000) > new Date().getTime()
+    }
+
+    return false
+}
 
 
 
@@ -30,26 +42,32 @@ export const actions ={
     Login({commit},data){
       return  axios.post('/api/v1/users/login',data)
         .then(response=>{
-            commit('SET_AUTH',response.data)
+            const user = response.data
+            localStorage.setItem('meetup-jwt',user.token)
+            commit('SET_AUTH',user)
         }).catch(err =>{
             console.log(err)
         })
     },
     getAuthUser({commit,getters}){
         const authUser = getters['authUser']
-        if(authUser){
+        const token = localStorage.getItem('meetup-jwt')
+        const isTokenValid = checkTokenValidity(token)
+
+        if(authUser && isTokenValid){
             return Promise.resolve(authUser)
         }
 
         const config ={
             headers:{
-                'Cache-Control':'no-cache'
+                'Cache-Control':'no-cache',
             }
         }
 
-        return axios.get('/api/v1/users/me',config)
+        return axiosInstance.get('/api/v1/users/me',config)
         .then(res =>{
            const user = res.data
+           localStorage.setItem('meetup-jwt',user.token)
            commit('setAuthuser',user)
            commit("setAuthState",true)
            return user
