@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Error :title="'Ooooops, page you are trying to access does not exist'"
-     :status="404"
+     :status="'404'"
       :navigateToPage="'PageHome'" 
       :navigateToText="'Navigate back Home'"/>
   </div>

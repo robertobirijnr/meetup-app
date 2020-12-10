@@ -15,9 +15,6 @@ export default {
     TheNavbar,
     TheFooter
   },
-  created(){
-    this.$store.dispatch('getAuthUser')
-  },
   computed:{
     isAuthResolve(){
       return this.$store.state.auth.isAuthenResolve

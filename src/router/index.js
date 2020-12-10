@@ -2,6 +2,7 @@ import store from '../store'
 import vue from 'vue'
 import Router from 'vue-router'
 
+
 vue.use(Router)
 
 const router = new Router({
@@ -15,13 +16,10 @@ const router = new Router({
             path:'/meetups/screte',
             name:'SecretePage',
             component:()=>import('../pages/SecretePage.vue'),
-            beforeEnter(to,from,next){
-                if(store.getters['auth/isAuthenticated']){
-                    next()
-                }else{
-                    next('/notfound')
-                }
+            meta:{
+                onlyAuthUser:true
             }
+           
         },
         {
             path:'/meetups/:id',
@@ -56,6 +54,23 @@ const router = new Router({
         
     ],
     mode:'history'
+})
+
+router.beforeEach((to,from,next)=>{
+    store.dispatch('getAuthUser')
+    .then(authUser =>{
+        if(to.meta.onlyAuthUser){
+            if(store.getters['isAuthenticated']){
+                next()
+            }else{
+                next('/notfound')
+            }
+            
+        }else{
+            next()
+        }
+        
+    })
 })
 
 export default router;
