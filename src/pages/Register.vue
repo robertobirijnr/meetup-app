@@ -169,8 +169,8 @@ import { required, email,minLength,url,sameAs} from 'vuelidate/lib/validators'
               this.$v.form.$touch()
               this.$store.dispatch("registerUser",this.form)
               .then(()=>this.$router.push('/login'))
-              .catch(err=>{
-                console.log(err)
+              .catch((errorMessage)=>{
+                this.$toasted.error(errorMessage,{duration:5000})
               })
 
           }

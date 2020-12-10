@@ -30,7 +30,8 @@ exports.register = (req,res) =>{
   if(!regData.email){
     return res.status(422).json({
       errors:{
-        email:'email is required'
+        email:'email is required',
+        message:'email is required'
       }
     })
   }
@@ -38,7 +39,8 @@ exports.register = (req,res) =>{
   if(!regData.password){
     return res.status(422).json({
       errors:{
-        password:'password is required'
+        password:'password is required',
+        message:'password is required'
       }
     })
   }
@@ -46,7 +48,8 @@ exports.register = (req,res) =>{
   if(regData.password !== regData.passwordConfirmation){
     return res.status(422).json({
       errors:{
-        password:'password do not match'
+        password:'password do not match',
+        message:'password do not match',
       }
     })
   }
@@ -70,7 +73,8 @@ exports.login =(req,res,next)=>{
   if(!email){
     return res.status(422).json({
       errors:{
-        email:'invalid email address'
+        email:'invalid email address',
+        message:'invalid email address',
       }
     })
   }
@@ -78,7 +82,8 @@ exports.login =(req,res,next)=>{
   if(!password){
     return res.status(422).json({
       error:{
-        password:'invalid password'
+        password:'invalid password',
+        message:'invalid password',
       }
     })
   }

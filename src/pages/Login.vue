@@ -91,9 +91,9 @@ import { required, email} from 'vuelidate/lib/validators'
               .then(()=>{
                 this.$router.push('/')
               })
-              .catch(err=>{
-                this.$toasted.error('Password or Email is wrong',{duration:5000})
-                console.log(err)
+              .catch((errorMessage)=>{
+                this.$toasted.error(errorMessage,{duration:5000})
+               
               })
           }
       }

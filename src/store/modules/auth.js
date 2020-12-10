@@ -1,6 +1,7 @@
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import axiosInstance from '../../service/axios'
+import {rejectError} from '../../helpers'
 
 function checkTokenValidity(token){
     if(token){
