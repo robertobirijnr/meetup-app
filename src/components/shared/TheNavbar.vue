@@ -59,7 +59,7 @@
               Profile
           </a>
           <hr class="navbar-divider">
-          <a class="navbar-item">
+          <a @click.prevent="logout" class="navbar-item">
               Logout
           </a>
         </div>
@@ -87,6 +87,11 @@ import {mapGetters} from 'vuex'
       ...mapGetters({
         'user':'authUser'
       })
+    },
+    methods:{
+      logout(){
+        this.$store.dispatch('logout')
+      }
     }
   }
 </script>

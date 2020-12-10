@@ -45,6 +45,16 @@ export const actions ={
             commit('setAuthuser',null)
            return undefined
         })
+    },
+    logout({commit}){
+        return axios.post('/api/v1/users/logout')
+        .then(()=>{
+            commit('setAuthuser',null)
+            return true
+        })
+        .catch(err =>{
+            console.log(err)
+        })
     }
 }
 
