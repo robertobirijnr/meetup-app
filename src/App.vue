@@ -14,6 +14,9 @@ export default {
   components: {
     TheNavbar,
     TheFooter
+  },
+  created(){
+    this.$store.dispatch('getAuthUser')
   }
 }
 </script>

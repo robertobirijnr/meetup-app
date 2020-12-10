@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 
+
 export const state ={
     user:null
 }
@@ -32,11 +33,26 @@ export const actions ={
         }).catch(err =>{
             console.log(err)
         })
+    },
+    getAuthUser({commit}){
+        return axios.get('/api/v1/users/me')
+        .then(res =>{
+           const user = res.data
+           commit('setAuthuser',user)
+           return user
+        })
+        .catch(err=>{
+            commit('setAuthuser',null)
+           return undefined
+        })
     }
 }
 
 export const mutations ={
     SET_AUTH(state,user){
       return  state.user = user
+    },
+    setAuthuser(state, user){
+        return state.user = user
     }
 }
