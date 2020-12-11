@@ -22,6 +22,15 @@ const router = new Router({
            
         },
         {
+            path:'/meetups/create',
+            name:'CreateMeetup',
+            component:()=>import('../pages/CreateMeetup.vue'),
+            meta:{
+                onlyAuthUser:true
+            }
+           
+        },
+        {
             path:'/meetups/:id',
             name:'MeetupDetails',
             component:()=>import('../pages/MeetupDetail.vue')
