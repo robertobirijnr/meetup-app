@@ -5,16 +5,24 @@
     </div>
     <!-- Form Steps -->
     <keep-alive>
-      <MeetupLocation v-if="currentStep === 1" @stepUpdated="mergeStepsData"/>
-      <MeetupDetail  v-if="currentStep === 2" @stepUpdated="mergeStepsData"/>
-      <MeetupDescription  v-if="currentStep === 3" @stepUpdated="mergeStepsData"/>
+      <MeetupLocation v-if="currentStep === 1" 
+      ref="currentComponent"
+      @stepUpdated="mergeStepsData"/>
+      <MeetupDetail  v-if="currentStep === 2"
+      ref="currentComponent"
+       @stepUpdated="mergeStepsData"/>
+      <MeetupDescription  v-if="currentStep === 3" 
+      ref="currentComponent"
+      @stepUpdated="mergeStepsData"/>
       <MeetupConfirmation  v-if="currentStep === 4" :confirmMeetup="form"/>
     </keep-alive>
 
     <progress class="progress" :value="currentProgress" max="100">{{currentProgress}}%</progress>
     <div class="controll-btns m-b-md">
-      <button v-if="currentStep !==1" @click="moveToPrevStep" class="button is-primary m-r-sm">Back</button>
-      <button v-if="currentStep !== allStepsCount" @click="moveToNextStep" class="button is-primary">Next</button>
+      <button
+      v-if="currentStep !==1" @click="moveToPrevStep"
+       class="button is-primary m-r-sm">Back</button>
+      <button :disabled="!canProceed" v-if="currentStep !== allStepsCount" @click="moveToNextStep" class="button is-primary">Next</button>
       <!-- Confirm Data -->
        <button v-else
               class="button is-primary">Confirm</button> 
@@ -34,12 +42,14 @@
       MeetupLocation,
       MeetupDetail,
       MeetupDescription,
-      MeetupConfirmation
+      MeetupConfirmation,
+      
     },
     data () {
       return {
         currentStep:1,
         allStepsCount:4,
+        canProceed:false,
         form: {
           location: null,
           title: null,
@@ -59,14 +69,23 @@
       }
     },
     methods:{
-      mergeStepsData(stepData){
-        this.form = {...this.form, ...stepData}
+      mergeStepsData(step){
+        this.form = {...this.form, ...step.data}
+        this.canProceed = step.valid
       },
+
       moveToNextStep(){
         this.currentStep++
+
+        this.$nextTick(()=>{
+           this.canProceed = !this.$refs['currentComponent'].$v.$invalid
+        })
+       
+        
       },
       moveToPrevStep(){
         this.currentStep--
+        this.canProceed = true
       }
     }
   }
