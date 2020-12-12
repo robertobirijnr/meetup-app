@@ -1,8 +1,8 @@
 <template>
-  <form>
+  <form @input="emitFormData">
     <div class="field">
       <label class="title m-b-sm">Choose Title</label>
-      <input v-model="form.title"
+      <input  v-model="form.title"
              class="input"
              type="text"
              placeholder="Enter Title">
@@ -12,7 +12,7 @@
     </div>
     <div class="field">
       <label class="title m-b-sm">Starts At</label>
-      <input v-model="form.startsAt"
+      <input v-model="form.startDate"
              class="input"
              type="text"
              placeholder="Starts At">
@@ -39,7 +39,7 @@
       <div class="m-b-lg">
         <div class="select">
           <!-- TODO: Get Here Categories -->
-          <select v-model="form.category">
+          <select v-model="form.category" @change="emitFormData">
             <option v-for="category of categories"
                     :value="category"
                     :key="category.id">{{category.name}}</option>
@@ -79,6 +79,11 @@
     computed:{
       categories(){
         return this.$store.state.categories.categories
+      }
+    },
+    methods:{
+      emitFormData(){
+        this.$emit('stepUpdated',this.form)
       }
     }
   }

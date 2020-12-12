@@ -4,10 +4,12 @@
       {{currentStep}} of {{allStepsCount}}
     </div>
     <!-- Form Steps -->
-    <MeetupLocation v-if="currentStep === 1" />
-    <MeetupDetail  v-if="currentStep === 2"/>
-    <MeetupDescription  v-if="currentStep === 3"/>
-    <MeetupConfirmation  v-if="currentStep === 4"/>
+    <keep-alive>
+      <MeetupLocation v-if="currentStep === 1" @stepUpdated="mergeStepsData"/>
+      <MeetupDetail  v-if="currentStep === 2" @stepUpdated="mergeStepsData"/>
+      <MeetupDescription  v-if="currentStep === 3" @stepUpdated="mergeStepsData"/>
+      <MeetupConfirmation  v-if="currentStep === 4" :confirmMeetup="form"/>
+    </keep-alive>
 
     <progress class="progress" :value="currentProgress" max="100">{{currentProgress}}%</progress>
     <div class="controll-btns m-b-md">
@@ -57,6 +59,9 @@
       }
     },
     methods:{
+      mergeStepsData(stepData){
+        this.form = {...this.form, ...stepData}
+      },
       moveToNextStep(){
         this.currentStep++
       },

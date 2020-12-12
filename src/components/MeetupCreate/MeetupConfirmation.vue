@@ -7,41 +7,41 @@
         <span class="result-title">
         Location
         </span>
-        <p>Some Location</p>
+        <p>{{confirmMeetup.location}}</p>
       </div>
       <div>
         <span class="result-title">
         Title
         </span>
-        <p>Some Title</p>
+        <p>{{confirmMeetup.title}}</p>
       </div>
       <div>
         <span class="result-title">
         Start Date
         </span>
-        <p>Some Start Date</p>
+        <p>{{confirmMeetup.startDate}}</p>
       </div>
       <div>
         <span class="result-title">
         From
         </span>
-        <p>Some Time From</p>
+        <p>{{confirmMeetup.timeFrom}}</p>
       </div>
       <div>
         <span class="result-title">
         To
         </span>
-        <p>Some Time To</p>
+        <p>{{confirmMeetup.timeTo}}</p>
       </div>
       <div>
         <span class="result-title">
         Category
         </span>
-        <p>Some Category</p>
+        <p>{{confirmMeetup.category.name}}</p>
       </div>
       <div>
         <span class="result-title">
-        Image
+        {{confirmMeetup.image}}
         </span>
         <p>Some Event</p>
       </div>
@@ -49,13 +49,13 @@
         <span class="result-title">
         Short Info
         </span>
-        <p>Some Info</p>
+        <p>{{confirmMeetup.shortInfo}}</p>
       </div>
       <div>
         <span class="result-title">
         Description
         </span>
-        <p>Some Description</p>
+        <p>{{confirmMeetup.tdescription}}</p>
       </div>
     </div>
   </div>
@@ -63,6 +63,12 @@
 
 <script>
   export default {
+    props:{
+      confirmMeetup:{
+        required:true,
+        type:Object
+      }
+    },
     validations: {}
   }
 </script>
