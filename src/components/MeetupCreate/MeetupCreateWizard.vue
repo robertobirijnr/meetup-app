@@ -25,10 +25,11 @@
       <button :disabled="!canProceed" v-if="currentStep !== allStepsCount" @click="moveToNextStep" class="button is-primary">Next</button>
       <!-- Confirm Data -->
        <button v-else
+        @click="emitMeetup"
               class="button is-primary">Confirm</button> 
     </div>
     <!-- Just To See Data in the Form -->
-    <pre><code>{{form}}</code></pre>
+    <!-- <pre><code>{{form}}</code></pre> -->
   </div>
 </template>
 
@@ -79,13 +80,14 @@
 
         this.$nextTick(()=>{
            this.canProceed = !this.$refs['currentComponent'].$v.$invalid
-        })
-       
-        
+        }) 
       },
       moveToPrevStep(){
         this.currentStep--
         this.canProceed = true
+      },
+      emitMeetup(){
+        this.$emit('meetupConfirm',this.form)
       }
     }
   }

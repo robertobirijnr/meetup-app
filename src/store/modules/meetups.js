@@ -32,6 +32,10 @@ export const actions ={
         .then(res => {
          commit("SET_MEETUP",res.data)
         })
+     },
+     createMeetup({commit},formData){
+        //  return axios.post('/api/v1/meetup')
+        console.log(formData)
      }
 }
 

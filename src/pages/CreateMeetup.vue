@@ -3,7 +3,7 @@
     <AppHero />
     <section class="section">
       <div class="container">
-        <MeetupCreateWizard />
+        <MeetupCreateWizard @meetupConfirm="createMeetup" />
       </div>
     </section>
   </div>
@@ -24,6 +24,11 @@
      if(this.categories.length === 0){
         this.$store.dispatch('fetchCategories')
      }
+    },
+    methods:{
+      createMeetup(meetupToCreate){
+        this.$store.dispatch('createMeetup',meetupToCreate)
+      }
     }
   }
 </script>
