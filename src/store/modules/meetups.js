@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Vue from 'vue'
+import axiosInstance from '../../service/axios'
 
 export const state ={
     meetups:[],
@@ -33,9 +33,15 @@ export const actions ={
          commit("SET_MEETUP",res.data)
         })
      },
-     createMeetup({commit},formData){
+     createMeetup({rootState},formData){
         //  return axios.post('/api/v1/meetup')
-        console.log(formData)
+        formData.meetupCreator = rootState.auth.user
+        formData.processedLocation  = formData.location.toLowerCase().replace(/[\s,]+/g,'').trim()
+
+        return axiosInstance.post('/api/v1/meetups',formData)
+        .then(res =>{
+            res.data
+        })
      }
 }
 
