@@ -2,6 +2,7 @@ import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import axiosInstance from '../../service/axios'
 import {rejectError} from '../../helpers'
+import Vue from 'vue'
 
 function checkTokenValidity(token){
     if(token){
@@ -91,6 +92,10 @@ export const actions ={
            return undefined
         })
     },
+    addMeetupToAuthUser({commit,state},meetupId){
+        const userMeetups = [...state.user['joinedMeetups'],meetupId]
+        commit("SET_MEETUP_TO_AUTH_USERS",userMeetups)
+    },
     logout({commit}){
         // return axios.post('/api/v1/users/logout')
         // .then(()=>{
@@ -118,5 +123,8 @@ export const mutations ={
     },
     setAuthState(state,setAuthState){
        return state.isAuthenResolve = setAuthState
+    },
+    SET_MEETUP_TO_AUTH_USERS(state,meetups){
+        return Vue.set(state.user,'joinedMeetups',meetups)
     }
 }

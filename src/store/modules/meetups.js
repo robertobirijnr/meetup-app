@@ -1,5 +1,6 @@
 import axios from 'axios'
 import axiosInstance from '../../service/axios'
+import Vue from 'vue'
 
 export const state ={
     meetups:[],
@@ -42,6 +43,18 @@ export const actions ={
         .then(res =>{
             res.data
         })
+     },
+     joinMeetup({state,rootState,commit,dispatch},meetupId){
+         const user = rootState.auth.user
+
+         return axiosInstance.post(`/api/v1/meetups/${meetupId}/join`)
+         .then(res=>{
+             dispatch('addMeetupToAuthUser',meetupId,{root: true})
+
+             const joinedPeople = state.meetup.joinedPeople
+             commit('adduserToMeetup',[...joinedPeople,user])
+             true
+         })
      }
 }
 
@@ -54,5 +67,8 @@ export const mutations ={
     },
     SET_MEETUP(state,meetup){
         state.meetup = meetup
+    },
+    adduserToMeetup(state,joinedPeople){
+        Vue.set(state.meetup, 'joinedPeople', joinedPeople)
     }
 }

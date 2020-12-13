@@ -82,21 +82,21 @@
           <div class="column is-7 is-offset-1">
             <div class="content is-medium">
               <h3 class="title is-3">About the Meetup</h3>
-              <!-- TODO: meetup description -->
+              
               <p>{{meetupdetail.description}}</p>
-              <!-- Join Meetup, We will handle it later (: -->
-              <button v-if="canJoin" class="button is-primary">Join In</button>
-              <!-- Not logged In Case, handle it later (: -->
+             
+              <button @click="joinMeetup" v-if="canJoin" class="button is-primary">Join In</button>
+            
               <button v-if="!isAuthenticated" :disabled="true"
                       class="button is-warning">You need authenticate in order to join</button>
             </div>
-            <!-- Thread List START -->
+          
             <div class="content is-medium">
               <h3 class="title is-3">Threads</h3>
               <div v-for="thread in threads" :key="thread._id" class="box">
-                <!-- Thread title -->
+ 
                 <h4 id="const" class="title is-3">{{thread.title}}</h4>
-                <!-- Create new post, handle later -->
+               
                 <form class="post-create">
                   <div class="field">
                     <textarea class="textarea textarea-post"
@@ -179,7 +179,10 @@ import {mapActions , mapState} from 'vuex'
             
         },
         methods:{
-          ...mapActions(['fetchMeetupsDetail','fetchThreads'])
+          ...mapActions(['fetchMeetupsDetail','fetchThreads']),
+          joinMeetup(){
+            this.$store.dispatch('joinMeetup',this.meetupdetail._id)
+          }
         }
         
     }
