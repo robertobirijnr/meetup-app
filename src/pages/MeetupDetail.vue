@@ -157,6 +157,18 @@ import {mapActions , mapState} from 'vuex'
             meetupCreator(){
                 return this.meetupdetail.meetupCreator || {}
             },
+            isAuthenticated(){
+              return this.$store.getters['isAuthenticated']
+            },
+            isMeetupOwner(){
+              return this.$store.getters['isMeetupOwner'](this.meetupCreator._id)
+            },
+            isMember(){
+              return this.$store.getters['isMember'](this.meetupdetail._id)
+            },
+            canJoin(){
+              return !this.isMeetupOwner && this.isAuthenticated && !this.isMember
+            }
         },
         created(){
             const meetupId = this.$route.params.id
