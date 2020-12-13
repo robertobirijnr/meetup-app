@@ -26,7 +26,7 @@
         </div>
         <div class="is-pulled-right">
           <!-- We will handle this later (: -->
-          <button v-if="isMember" class="button is-danger">Leave Meetup</button>
+          <button @click="leaveMeetup" v-if="isMember" class="button is-danger">Leave Meetup</button>
         </div>
       </div>
     </section>
@@ -182,6 +182,9 @@ import {mapActions , mapState} from 'vuex'
           ...mapActions(['fetchMeetupsDetail','fetchThreads']),
           joinMeetup(){
             this.$store.dispatch('joinMeetup',this.meetupdetail._id)
+          },
+          leaveMeetup(){
+            this.$store.dispatch('leaveMeetup',this.meetupdetail._id)
           }
         }
         

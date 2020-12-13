@@ -96,16 +96,14 @@ export const actions ={
         const userMeetups = [...state.user['joinedMeetups'],meetupId]
         commit("SET_MEETUP_TO_AUTH_USERS",userMeetups)
     },
-    logout({commit}){
-        // return axios.post('/api/v1/users/logout')
-        // .then(()=>{
-        //     commit('setAuthuser',null)
-        //     return true
-        // })
-        // .catch(err =>{
-        //     console.log(err)
-        // })
+    removeMeetupFromAuthUser({commit,state},meetupId){
+        const userMeetupsIds = [...state.user['joinedMeetups']]
+        const index = userMeetupsIds.findIndex(userMeetupId => userMeetupId === meetupId)
 
+        userMeetupsIds.splice(index,1)
+        commit('SET_MEETUP_TO_AUTH_USERS',userMeetupsIds)
+    },
+    logout({commit}){
         return new Promise((resolve,reject)=>{
             localStorage.removeItem('meetup-jwt')
             commit('setAuthuser',null)

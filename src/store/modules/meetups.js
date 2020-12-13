@@ -53,7 +53,20 @@ export const actions ={
 
              const joinedPeople = state.meetup.joinedPeople
              commit('adduserToMeetup',[...joinedPeople,user])
-             true
+             return true
+         })
+     },
+     leaveMeetup({state,rootState,commit,dispatch},meetupId){
+         const user = rootState.auth.user
+
+         return axiosInstance.post(`/api/v1/meetups/${meetupId}/leave`)
+         .then(()=>{
+             dispatch('removeMeetupFromAuthUser',meetupId,{root:true})
+
+             const joinedPeople = state.meetup.joinedPeople
+             const index = joinedPeople.findIndex(Joinuser => Joinuser._id === user._id)
+             joinedPeople.splice(index,1)
+             commit('adduserToMeetup',joinedPeople)
          })
      }
 }
