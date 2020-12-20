@@ -1,7 +1,9 @@
 <template>
      <form class="post-create">
         <div class="field">
-        <textarea class="textarea textarea-post"
+        <textarea
+        v-auto-expand
+         class="textarea textarea-post"
                     placeholder="Write a post"
                     rows="1"></textarea>
         <button :disabled="true" class="button is-primary m-t-sm">Send</button>
@@ -10,8 +12,11 @@
 </template>
 
 <script>
+import autoExpand from '@/directives/autoExpand'
     export default {
-        
+        directives:{
+            autoExpand
+        }
     }
 </script>
 
