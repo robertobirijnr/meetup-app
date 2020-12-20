@@ -61,7 +61,7 @@
                 Threads
               </p>
               <ul>
-                <li v-for="thread in threads" :key="thread.index">
+                <li v-for="thread in orderThreads" :key="thread.index">
                   {{thread.index}}
                 </li>
               </ul>
@@ -99,7 +99,7 @@
           
             <div class="content is-medium">
               <h3 class="title is-3">Threads</h3>
-              <div v-for="thread in threads" :key="thread._id" class="box">
+              <div v-for="thread in orderThreads" :key="thread._id" class="box">
  
                 <h4 id="const" class="title is-3">{{thread.title}}</h4>
                
@@ -177,6 +177,12 @@ import threadCreateModal from '../components/threadCreateModal.vue'
             },
             canJoin(){
               return !this.isMeetupOwner && this.isAuthenticated && !this.isMember
+            },
+            orderThreads(){
+              const threadCopy = [...this.threads]
+              return threadCopy.sort((thread,nextThread)=>{
+                return new Date(nextThread.createdAt) - new Date(thread.createdAt)
+              })
             }
         },
         created(){
@@ -198,6 +204,7 @@ import threadCreateModal from '../components/threadCreateModal.vue'
           createthread({title,done}){
             this.postThread({title,meetupId: this.meetupdetail._id})
             .then(() =>{
+              this.$toasted.success("Thread successfully created",{duration:3000})
               done()
               this.fetchThreads(this.$route.params.id)
             })
