@@ -93,6 +93,7 @@
                       <thread-create-modal v-if="isMeetupOwner  || isMember" 
                       :btnTitle="`Welcome ${authUser.username}, Start a new thread`"
                       :title="'Create Thread'"
+                      @threadsubmitted="createthread"
                       />
             </div>
           
@@ -193,6 +194,10 @@ import threadCreateModal from '../components/threadCreateModal.vue'
           },
           leaveMeetup(){
             this.$store.dispatch('leaveMeetup',this.meetupdetail._id)
+          },
+          createthread({title,done}){
+            console.log(title)
+            done()
           }
         }
         
