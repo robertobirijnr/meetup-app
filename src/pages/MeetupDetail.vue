@@ -89,6 +89,11 @@
             
               <button v-if="!isAuthenticated" :disabled="true"
                       class="button is-warning">You need authenticate in order to join</button>
+
+                      <thread-create-modal v-if="isMeetupOwner  || isMember" 
+                      :btnTitle="`Welcome ${authUser.username}, Start a new thread`"
+                      :title="'Create Thread'"
+                      />
             </div>
           
             <div class="content is-medium">
@@ -142,11 +147,14 @@
 <script>
 import axios from 'axios'
 import {mapActions , mapState} from 'vuex'
+import threadCreateModal from '../components/threadCreateModal.vue'
     export default {
+  components: { threadCreateModal },
       computed:{
             ...mapState({
               meetupdetail:state => state.meetups.meetupById,
-              threads:state => state.thread.threads
+              threads:state => state.thread.threads,
+              authUser:state => state.auth.user
             }),
           //  meetupdetail(){
           //   return  this.$store.state.meetupById
