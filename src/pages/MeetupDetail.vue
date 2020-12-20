@@ -196,8 +196,11 @@ import threadCreateModal from '../components/threadCreateModal.vue'
             this.$store.dispatch('leaveMeetup',this.meetupdetail._id)
           },
           createthread({title,done}){
-            this.postThread({title,meetupId: this.meetup_id})
-            done()
+            this.postThread({title,meetupId: this.meetupdetail._id})
+            .then(() =>{
+              done()
+              this.fetchThreads(this.$route.params.id)
+            })
           }
         }
         

@@ -56,7 +56,7 @@ class DB {
   }
 }
 
-mongoose.connect(config.DB_URI, { useNewUrlParser: true })
+mongoose.connect(config.DB_URI_LOCAL, { useNewUrlParser: true })
   .then(async () => {
     const db = new DB();
     await db.seedDb();

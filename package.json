@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "nodemon ./server/index.js"
+    "start": "nodemon ./server/index.js",
+    "SeedDB":"node ./server/seedDB.js"
   },
   "dependencies": {
     "algoliasearch": "^3.32.0",
