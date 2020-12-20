@@ -1,4 +1,5 @@
 import axios from 'axios'
+import axiosInstance from '../../service/axios'
 
 
 export const state ={
@@ -15,7 +16,12 @@ export const actions ={
             alert(err)
         })
      },
+
+     postThread({commit,state},{title,id}){
+        return axiosInstance.post(`/api/v1/threads/${id}`,title)
+     }
 }
+
 
 export const mutations ={
     SET_MEETUP_THREADS(state,threads){

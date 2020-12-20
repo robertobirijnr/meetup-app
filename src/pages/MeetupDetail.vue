@@ -188,7 +188,7 @@ import threadCreateModal from '../components/threadCreateModal.vue'
             
         },
         methods:{
-          ...mapActions(['fetchMeetupsDetail','fetchThreads']),
+          ...mapActions(['fetchMeetupsDetail','fetchThreads','postThread']),
           joinMeetup(){
             this.$store.dispatch('joinMeetup',this.meetupdetail._id)
           },
@@ -196,7 +196,7 @@ import threadCreateModal from '../components/threadCreateModal.vue'
             this.$store.dispatch('leaveMeetup',this.meetupdetail._id)
           },
           createthread({title,done}){
-            console.log(title)
+            this.postThread({title,meetupId: this.meetup_id})
             done()
           }
         }
