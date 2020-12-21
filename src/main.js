@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import App from './App.vue'
-import io from 'socket.io-client'
 
 import AppDropdown from './components/shared/AppDropdown'
 import AppHero from './components/shared/AppHero'
@@ -9,6 +8,7 @@ import moment from 'moment'
 import router from './router'
 import store from './store'
 import AppSpinner from './components/spinner.vue'
+import AppSocket from './plugins/socketPlugin'
 
 import Toasted from 'vue-toasted'
 
@@ -20,6 +20,7 @@ Vue.component('AppSpinner',AppSpinner)
 
 Vue.use(Vuelidate)
 Vue.use(Toasted)
+Vue.use(AppSocket,{connection: 'http://localhost:3001'})
 
 Vue.filter('capitalize', function(value){
   if(value && typeof value === 'string'){
@@ -34,14 +35,9 @@ Vue.filter('formatDate',function(value,formatType = 'LL'){
   return moment(value).format(formatType)
 })
 
-const socket = io('http://localhost:3001')
+
 
 new Vue({
-  data() {
-    return {
-      socket
-    }
-  },
   router,
   Vuelidate,
   store,
