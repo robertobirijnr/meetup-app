@@ -5,7 +5,7 @@
 
         <h4 id="const" class="title is-3">{{thread.title}}</h4>
         
-         <post-create v-if="canMakePost"/>
+         <post-create v-if="canMakePost" :threadId="thread._id"/>
         
         <article v-for="post in thread.posts" :key="post._id" class="media post-item">
             <figure class="media-left is-rounded user-image">
