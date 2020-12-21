@@ -29,11 +29,16 @@ import autoExpand from '@/directives/autoExpand'
                 text: null
             }
         },
+        computed:{
+            meetup(){
+                return this.$store.state.meetups.meetup
+            }
+        },
         methods:{
             sendPost(){
                 this.$store.dispatch('sendPost',{text: this.text,threadId: this.threadId})
                 .then((createdPost)=>{
-                    this.$socket.emit('meetup/postSave',createdPost)
+                    this.$socket.emit('meetup/postSave',{...createdPost, meetup: this.meetup._id})
                     this.text = ""
                 })
             }

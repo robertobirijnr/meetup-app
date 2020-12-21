@@ -155,16 +155,21 @@ import ThreadList from '../components/threadList.vue'
             this.fetchMeetupsDetail(meetupId)
             this.fetchThreads(meetupId)
 
-            this.$socket.on('meetup/postPublished',function(post){
-              alert(post.text)
-              console.log(post.text)
-            })
+           if(this.isAuthenticated){
+             this.$socket.emit('meetup/subscribe', meetupId)
+             this.$socket.on('meetup/postPublished',
+             (post)=> this.addPostToThread({post,threadId: post.thread}))
+           }
             // this.$store.dispatch('fetchMeetupsDetail',meetupId)
             // this.$store.dispatch('fetchThreads',meetupId)
             
         },
+        destroyed(){
+          this.$socket.removeListener('meetup/postPublish', this.addPostToThread)
+          this.$socket.emit('meetup/unsubscribe')
+        },
         methods:{
-          ...mapActions(['fetchMeetupsDetail','fetchThreads','postThread']),
+          ...mapActions(['fetchMeetupsDetail','fetchThreads','postThread','addPostToThread']),
           joinMeetup(){
             this.$store.dispatch('joinMeetup',this.meetupdetail._id)
           },
