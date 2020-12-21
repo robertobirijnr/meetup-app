@@ -35,6 +35,12 @@ Vue.filter('formatDate',function(value,formatType = 'LL'){
   return moment(value).format(formatType)
 })
 
+Vue.filter('FromNow',(value)=>{
+  if(!value) return ''
+
+  return moment(value).fromNow()
+})
+
 
 
 new Vue({
