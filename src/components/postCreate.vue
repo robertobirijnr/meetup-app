@@ -32,6 +32,9 @@ import autoExpand from '@/directives/autoExpand'
         methods:{
             sendPost(){
                 this.$store.dispatch('sendPost',{text: this.text,threadId: this.threadId})
+                .then(()=>{
+                    this.text = ""
+                })
             }
         }
     }
