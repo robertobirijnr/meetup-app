@@ -26,7 +26,6 @@ export const actions ={
         return axiosInstance.post('/api/v1/threads',thread)
         .then(response =>{
             const createdThread = response.data
-            console.log(createdThread)
             const index = state.threads.length
 
             commit('addThreadToArray',{createdThread,index})

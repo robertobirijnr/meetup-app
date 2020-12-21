@@ -154,6 +154,11 @@ import ThreadList from '../components/threadList.vue'
             const meetupId = this.$route.params.id
             this.fetchMeetupsDetail(meetupId)
             this.fetchThreads(meetupId)
+
+            this.$root.socket.on('meetup/postPublished',function(post){
+              alert(post.text)
+              console.log(post.text)
+            })
             // this.$store.dispatch('fetchMeetupsDetail',meetupId)
             // this.$store.dispatch('fetchThreads',meetupId)
             

@@ -35,6 +35,12 @@ mongoose.connect(config.DB_URI_LOCAL, { useNewUrlParser: true })
   .catch(err => console.log(err));
 
 const app = express();
+const server = require('http').createServer(app)
+const io = require('socket.io')(server,{pingTimeout:60000})
+
+require('./socket')(io)
+
+
 app.use(cors())
 
 app.use(bodyParser.json());
@@ -63,6 +69,6 @@ require('./services/passport')
 
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT , function() {
+server.listen(PORT , function() {
   console.log('App is running on port: ' + PORT);
 });

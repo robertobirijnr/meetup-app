@@ -32,7 +32,8 @@ import autoExpand from '@/directives/autoExpand'
         methods:{
             sendPost(){
                 this.$store.dispatch('sendPost',{text: this.text,threadId: this.threadId})
-                .then(()=>{
+                .then((createdPost)=>{
+                    this.$root.socket.emit('meetup/postSave',createdPost)
                     this.text = ""
                 })
             }
