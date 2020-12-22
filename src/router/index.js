@@ -57,6 +57,14 @@ const router = new Router({
             }
         },
         {
+            path:'/me',
+            name:'Profile',
+            component:() => import('../pages/Profile.vue'),
+            meta:{
+                onlyAuthUser:true
+            }
+        },
+        {
             path:'/notfound',
             name:'MeetupNotFound',
             component:()=>import('../pages/NotFoundPage.vue')
