@@ -4,6 +4,7 @@ import axiosInstance from '../../service/axios'
 import {rejectError} from '../../helpers'
 import Vue from 'vue'
 
+
 function checkTokenValidity(token){
     if(token){
         const decodedToken = jwt.decode(token)
@@ -108,6 +109,14 @@ export const actions ={
             localStorage.removeItem('meetup-jwt')
             commit('setAuthuser',null)
             resolve(true)
+        })
+    },
+    updateUser({commit},user){
+        return axiosInstance.patch(`/api/v1/users/${user._id}`,user)
+        .then(response =>{
+            const updateUser = response.data
+            commit('setAuthUser',updateUser)
+            return updateUser
         })
     }
 }

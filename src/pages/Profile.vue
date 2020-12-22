@@ -15,13 +15,13 @@
               <span class="title is-bold">{{user.name}}</span>
               <br/>
               <!-- Here will be user update functionality -->
-              <update-user-profile/>
+              <update-user-profile :authuser="user" @userSubmitted="updateUser"/>
               <br/>
             </p>
            
-            <p class="tagline">
+            <!-- <p class="tagline">
               {{user.info}}
-            </p>
+            </p> -->
           </div>
         
           <div @click="activeTab = 'meetups'"
@@ -146,6 +146,15 @@ export default {
        .then(stats =>{
            console.log(stats)
        })
+    },
+    methods:{
+        updateUser({user,done}){
+            this.$store.dispatch('updateUser',user)
+            .then(()=>{
+                this.$toasted.success("Profile successfully updated",{duration:3000})
+                done()
+            })
+        }
     }
 }
 </script>

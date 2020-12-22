@@ -12,24 +12,24 @@
           <form>
             <div class="field">
               <label class="title">Name</label>
-              <input class="input">
+              <input v-model="user.name" class="input">
             </div>
             <div class="field">
               <label class="title">Username</label>
-              <input class="input">
+              <input v-model="user.username" class="input">
             </div>
             <div class="field">
               <label class="title">Avatar</label>
-              <input class="input">
+              <input v-model="user.avatar" class="input">
             </div>
-            <div class="field">
+            <!-- <div class="field">
               <label class="title">Info</label>
-              <input class="input">
-            </div>
+              <input v-model="user.info" class="input">
+            </div> -->
           </form>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success">Save changes</button>
+          <button @click="emitUser" class="button is-success">Save changes</button>
           <button @click="openModal = false" class="button">Cancel</button>
         </footer>
       </div>
@@ -39,11 +39,23 @@
 
 <script>
 export default {
-    data() {
-        return {
-            openModal: false
+    props:{
+        authuser:{
+            required:true,
+            type:Object
         }
     },
+    data() {
+        return {
+            openModal: false,
+            user:{...this.authuser}
+        }
+    },
+    methods:{
+        emitUser(){
+            this.$emit('userSubmitted',{user:this.user,done:() => this.openModal = false})
+        }
+    }
     
 }
 </script>
