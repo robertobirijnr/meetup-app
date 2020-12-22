@@ -15,7 +15,7 @@
               <span class="title is-bold">{{user.name}}</span>
               <br/>
               <!-- Here will be user update functionality -->
-              <button class="button is-primary is-outlined m-t-sm">Update Info</button>
+              <update-user-profile/>
               <br/>
             </p>
            
@@ -122,7 +122,9 @@
 
 <script>
 import {mapState} from 'vuex'
+import updateUserProfile from '../components/updateUserProfile.vue'
 export default {
+  components: { updateUserProfile },
     data() {
         return {
             activeTab: "meetups"
