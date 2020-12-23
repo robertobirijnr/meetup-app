@@ -29,6 +29,7 @@ const meetupsRoutes = require('./routes/meetups'),
       threadsRoutes = require('./routes/threads'),
       postsRoutes = require('./routes/posts'),
       categoriesRoutes = require('./routes/categories');
+      locationApiRoutes = require('./routes/locationAPi')
 
 mongoose.connect(config.DB_URI_LOCAL, { useNewUrlParser: true })
   .then(() => console.log('DB Connected!'))
@@ -58,7 +59,7 @@ app.use(bodyParser.json());
 
 
 
-
+app.use('/api/v1/location',locationApiRoutes)
 app.use('/api/v1/meetups', meetupsRoutes);
 app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/posts', postsRoutes);

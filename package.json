@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "start": "nodemon ./server/index.js",
-    "SeedDB":"node ./server/seedDB.js"
+    "SeedDB": "node ./server/seedDB.js"
   },
   "dependencies": {
     "algoliasearch": "^3.32.0",
@@ -24,6 +24,7 @@
     "express-session": "^1.15.6",
     "firebase": "^5.8.0",
     "firebase-admin": "^6.5.0",
+    "geoip-lite": "^1.4.2",
     "http-proxy-middleware": "^0.19.1",
     "jsonwebtoken": "^8.4.0",
     "moment": "^2.23.0",
@@ -69,8 +70,8 @@
       "eslint:recommended"
     ],
     "rules": {
-      "no-console":0,
-      "no-unused-vars":0
+      "no-console": 0,
+      "no-unused-vars": 0
     },
     "parserOptions": {
       "parser": "babel-eslint"
