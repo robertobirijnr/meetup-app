@@ -1,6 +1,7 @@
 import axios from 'axios'
 import axiosInstance from '../../service/axios'
 import Vue from 'vue'
+import { applyFilters } from '../../helpers'
 
 export const state ={
     meetups:[],
@@ -9,15 +10,14 @@ export const state ={
 }
 
 export const actions ={
-    fetchMeetups({commit}){
-      return  axios.get('/api/v1/meetups')
+    fetchMeetups({state,commit},options={}){
+     const url = applyFilters('/api/v1/meetups',options.filter)
+
+      return  axios.get(url)
         .then(response =>{
             commit('SET_MEETUPS',response.data)
+            return state.meetups
         })
-        .catch(err =>{
-            console.log(err)
-        })
-
      },
      fetchMeetupsDetail({commit},meetupId){
       return  axios.get(`/api/v1/meetups/${meetupId}`)
