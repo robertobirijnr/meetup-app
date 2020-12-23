@@ -3,6 +3,7 @@ import Axios from "axios"
 
 
 export const state = {
+    isLocationResolved:false,
     item:{
         city:'',
         country:''
@@ -22,7 +23,12 @@ export const actions = {
         .then(response=>{
             const meta = response.data
             commit('setItem',meta)
+            commit('resolveLocation',true)
             return meta
+        })
+        .catch(err=>{
+            commit('resolveLocation',true)
+            return err
         })
     }
 }
@@ -30,6 +36,9 @@ export const actions = {
 export const mutations = {
     setItem(state,item){
         state.item = item
+    },
+    resolveLocation(state,location){
+        state.isLocationResolved = location
     }
 }
 
