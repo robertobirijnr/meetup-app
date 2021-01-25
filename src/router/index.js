@@ -36,6 +36,15 @@ const router = new Router({
             component:()=>import('../pages/MeetupDetail.vue')
         },
         {
+            path:'/meetups/:meetupId/edit',
+            name:'UpdateMeetupEdit',
+            component:()=>import('../pages/UpdateMeetupEdit.vue'),
+            meta:{
+                onlyAuthUser:true
+            },
+            props:true
+        },
+        {
             path:'/find',
             name:'MeetupFinder',
             component:()=>import('../pages/MeetupFind.vue')
