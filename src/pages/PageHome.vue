@@ -48,7 +48,8 @@ import MeetupItem from '../components/MeetupItem.vue'
      computed:{
        ...mapGetters({
          "user":'authUser',
-          "ipLocation": 'location'|| null
+         "ipLocation": null
+          // "ipLocation": 'location'|| null
        }),
        ...mapState({
          meetups:state => state.meetups.meetups,

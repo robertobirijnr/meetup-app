@@ -31,7 +31,7 @@ const meetupsRoutes = require('./routes/meetups'),
       categoriesRoutes = require('./routes/categories');
       locationApiRoutes = require('./routes/locationAPi')
 
-mongoose.connect(config.DB_URI_LOCAL, { useNewUrlParser: true })
+mongoose.connect(config.DB_URI, { useNewUrlParser: true })
   .then(() => console.log('DB Connected!'))
   .catch(err => console.log(err));
 
