@@ -68,6 +68,15 @@ export const actions ={
              joinedPeople.splice(index,1)
              commit('adduserToMeetup',joinedPeople)
          })
+     },
+     updateMeetups({commit,state},meetupData){
+        meetupData.processedLocation  = meetupData.location.toLowerCase().replace(/[\s,]+/g,'').trim()
+         return axiosInstance.patch(`/api/v1/meetups/${meetupData._id}`,meetupData)
+         .then(res=>{
+             const updatedMeetup = res.data
+             commit('mergeMeetup',updatedMeetup)
+             return state.meetup
+         })
      }
 }
 
@@ -83,5 +92,8 @@ export const mutations ={
     },
     adduserToMeetup(state,joinedPeople){
         Vue.set(state.meetup, 'joinedPeople', joinedPeople)
+    },
+    mergeMeetup(state,updatedMeetup){
+        state.meetup = {...state.meetup, ...updatedMeetup}
     }
 }
