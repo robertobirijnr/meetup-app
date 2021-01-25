@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        <strong>VueMeetuper</strong> by <a href="#">Robert Obiri Jnr</a>
+        <strong>Meetup App</strong> by <a href="#">Robert Obiri Jnr </a>
       </p>
     </div>
   </footer>

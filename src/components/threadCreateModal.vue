@@ -13,10 +13,11 @@
             <div class="field">
               <label class="title">What would you like to ask?</label>
               <textarea 
-                        v-model="form.title"
-                        class="textarea"
-                        placeholder="Just write something that interest you (:"
-                        rows="10"></textarea>
+                v-model="form.title"
+                class="textarea"
+                placeholder="Just write something that interest you (:"
+                rows="10">
+                </textarea>
             </div>
           </form>
         </section>

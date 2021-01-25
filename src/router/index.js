@@ -41,6 +41,12 @@ const router = new Router({
             component:()=>import('../pages/MeetupFind.vue')
         },
         {
+            path:'/find/:category',
+            name:'MeetupFindCategory',
+            component:()=>import('../pages/MeetupFind.vue'),
+            props:true
+        },
+        {
             path:'/register',
             name:'Register',
             component:()=>import('../pages/Register.vue'),

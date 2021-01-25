@@ -63,6 +63,12 @@
   import axios from 'axios'
   import {mapActions, mapState} from 'vuex'
   export default {
+    props:{
+      category:{
+        required:false,
+        type:String
+      }
+    },
     data() {
       return {
         searchedLocation: this.$store.getters['location'],
@@ -85,6 +91,10 @@
         if(this.searchedLocation){
           this.filter['location']= this.searchedLocation.toLowerCase().replace(/[\s,]+/g,'').trim()
         }
+        if(this.category){
+          this.filter['category'] = this.category
+        }
+        
         this.$store.dispatch('fetchMeetups',{filter:this.filter})
       }
       // ...mapActions(['fetchMeetup']),

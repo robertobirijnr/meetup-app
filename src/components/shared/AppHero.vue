@@ -4,7 +4,7 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            Welcome to VueMeetuper
+            Welcome to the Meetup App
           </h1>
           <h2 class="subtitle">
             Plan your meetups simple and anywhere
