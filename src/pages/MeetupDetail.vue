@@ -113,6 +113,12 @@ import threadCreateModal from '../components/threadCreateModal.vue'
 import ThreadList from '../components/threadList.vue'
     export default {
   components: { threadCreateModal, ThreadList },
+  data() {
+    return {
+      threadPageNum: 1,
+      threadPageSize:5
+    }
+  },
       computed:{
             ...mapState({
               meetupdetail:state => state.meetups.meetupById,
@@ -153,7 +159,8 @@ import ThreadList from '../components/threadList.vue'
         created(){
             const meetupId = this.$route.params.id
             this.fetchMeetupsDetail(meetupId)
-            this.fetchThreads(meetupId)
+            this.fetchThreadsHandler({meetupId})
+            
 
            if(this.isAuthenticated){
              this.$socket.emit('meetup/subscribe', meetupId)
@@ -170,6 +177,16 @@ import ThreadList from '../components/threadList.vue'
         },
         methods:{
           ...mapActions(['fetchMeetupsDetail','fetchThreads','postThread','addPostToThread']),
+          fetchThreadsHandler({meetupId}){
+            const filter ={
+              pageNum: this.threadPageNum,
+              pageSize: this.threadPageSize
+            }
+            this.fetchThreads({meetupId,filter})
+            .then(()=>{
+              this.threadPageNum++
+            })
+          },
           addPostToThreadHandler(post){
             this.addPostToThread({post,threadId: post.thread})
           },
