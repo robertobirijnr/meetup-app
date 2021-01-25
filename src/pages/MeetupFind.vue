@@ -16,6 +16,9 @@
               <div v-if="searchedLocation && meetups && meetups.length > 0" class="level-item">
                 <span>Meetups in {{meetups[0].location}}</span>
               </div>
+              <div v-if="category" class="level-item">
+                <button @click="cancelCategory" class="button is-danger">{{category}}  X</button>
+              </div>
             </div>
             <div class="level-right">
               <div class="level-item">
@@ -94,10 +97,13 @@
         if(this.category){
           this.filter['category'] = this.category
         }
-        
+
         this.$store.dispatch('fetchMeetups',{filter:this.filter})
-      }
+      },
       // ...mapActions(['fetchMeetup']),
+      cancelCategory(){
+        this.$router.push('/find')
+      }
     }
   }
 </script>
