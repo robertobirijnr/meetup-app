@@ -4,7 +4,7 @@
     <div v-if="loading" class="container">
       <section class="section">
       <div class="m-b-lg">
-        <h1 class="title is-inline">Featured Meetups in "Location"</h1>
+        <h1 class="title is-inline">Featured Meetups <span v-if="ipLocation">in {{ipLocation}}</span> </h1>
         <AppDropdown />
         <router-link v-if="user" to="/meetups/create" class="button is-primary is-pulled-right m-r-sm">Create Meetups</router-link>
         <router-link to="/find" class="button is-primary is-pulled-right m-r-sm">All</router-link>
@@ -47,17 +47,24 @@ import MeetupItem from '../components/MeetupItem.vue'
      },
      computed:{
        ...mapGetters({
-         user:'authUser'
+         "user":'authUser',
+          "ipLocation": 'location'|| null
        }),
        ...mapState({
          meetups:state => state.meetups.meetups,
          categories:state => state.categories.categories
-       })
+       }),
+       
       
      },
 
     created(){
-      Promise.all([this.fetchMeetups(),this.fetchCategories()])
+      const filter = {}
+      if(this.ipLocation){
+        filter['location'] = this.ipLocation.toLowerCase().replace(/[\s,]+/g,'').trim()
+      }
+
+      Promise.all([this.fetchMeetups({filter}),this.fetchCategories()])
       .then(()=>this.loading = true)
       
       // this.fetchMeetups()

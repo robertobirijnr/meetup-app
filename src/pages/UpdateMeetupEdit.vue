@@ -68,6 +68,23 @@
                   </div>
                   <!-- TIMES END -->
                 </div>
+
+                <div class="meetup-side-box-place m-b-sm">
+                  <p><b>Choose Categories</b></p>
+                  <div class="field">
+        
+                        <div class="select">
+                        <!-- TODO: Get Here Categories -->
+                        <select v-model="meetup.category">
+                            <option v-for="category of categories"
+                                    :value="category"
+                                    :key="category.id">{{category.name}}</option>
+                        </select> 
+                        </div>
+                    
+                    </div>
+                </div>
+
                 <div class="meetup-side-box-place m-b-sm">
                   <p><b>How to find us</b></p>
                   <div class="field">
@@ -152,14 +169,18 @@ export default {
         },
         authUser(){
             return this.$store.state.auth.user
+        },
+        categories(){
+           return this.$store.state.categories.categories
         }
     }
     ,
     created(){
         this.fetchMeetupByIdHandler()
+        this.fetchCategories()
     },
     methods:{
-        ...mapActions(['fetchMeetupsDetail','updateMeetups']),
+        ...mapActions(['fetchMeetupsDetail','updateMeetups','fetchCategories']),
         fetchMeetupByIdHandler(){
             this.fetchMeetupsDetail(this.meetupId)
             .then(meetup =>{

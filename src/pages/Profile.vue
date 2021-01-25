@@ -71,7 +71,7 @@
               </div>
             </div>
             <footer class="card-footer">
-              <a class="card-footer-item">Share</a>
+              <router-link :to="{name:'UpdateMeetupEdit', params:{meetupId: meetup._id}}" class="card-footer-item">Edit</router-link>
               <a class="card-footer-item">Delete</a>
             </footer>
           </div>

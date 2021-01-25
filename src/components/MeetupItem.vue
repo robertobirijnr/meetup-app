@@ -20,7 +20,7 @@
                 <div class="media-content">
                     <p class="title is-4 no-padding is-marginless">{{meetup.title}}</p>
                     <!-- <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p> -->
-                    <span class="tag is-success">{{meetup.category.name}}</span>
+                    <span class="tag is-success">{{meetup.category.name | capitalize}}</span>
                     <p class="subtitle is-7">{{meetup.location}} </p>
                 </div>
               </div>
