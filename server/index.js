@@ -1,8 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const config = require('./config/dev');
+const config = require('./config');
 const cors = require('cors');
+const path = require('path')
 
 const session = require('express-session');
 const passport = require('passport');
@@ -65,6 +66,15 @@ app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/posts', postsRoutes);
 app.use('/api/v1/threads', threadsRoutes);
 app.use('/api/v1/categories', categoriesRoutes);
+
+if (process.env.NODE_ENV === 'production') {
+  const appPath = path.join(__dirname, '..', 'dist');
+  app.use(express.static(appPath));
+
+  app.get('*', function(req, res) {
+    res.sendFile(path.resolve(appPath, 'index.html'));
+  });
+}
 
 require('./services/passport')
 
