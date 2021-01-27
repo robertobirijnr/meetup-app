@@ -4,6 +4,8 @@
 ```
 npm install
 ```
+## Project Screenshoot
+<img src="./public/projectscreenshot.png">
 
 ### Compiles and hot-reloads for development
 ```
