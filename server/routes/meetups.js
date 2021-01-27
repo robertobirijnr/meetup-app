@@ -11,6 +11,6 @@ router.post('',AuthCtrl.authenticatedUser, MeetupsCtrl.createMeetup)
 router.post('/:id/join', AuthCtrl.authenticatedUser, MeetupsCtrl.joinMeetup);
 router.post('/:id/leave', AuthCtrl.authenticatedUser, MeetupsCtrl.leaveMeetup);
 router.patch('/:id', AuthCtrl.authenticatedUser, MeetupsCtrl.updateMeetup)
-
+router.delete('/:id', AuthCtrl.authenticatedUser, MeetupsCtrl.deleteMeetup)
 
 module.exports = router;
