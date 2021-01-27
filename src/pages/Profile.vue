@@ -162,7 +162,7 @@ export default {
           if(isConfirm){
             this.$store.dispatch('deleteMeetup', meetupId)
             .then((id)=>{
-              console.log(id)
+              this.$store.dispatch('updateStat',id)
             })
             .catch(err=>{
               console.log(err)

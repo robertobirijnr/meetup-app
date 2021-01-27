@@ -79,7 +79,7 @@ export const actions ={
              return state.meetup
          })
      },
-     deleteMeetup({},meetupId){
+     deleteMeetup(_,meetupId){
         return axiosInstance.delete(`/api/v1/meetups/${meetupId}`)
         .then((res)=>{
             const meetupID = res.data
