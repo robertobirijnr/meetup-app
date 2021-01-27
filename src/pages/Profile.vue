@@ -72,7 +72,7 @@
             </div>
             <footer class="card-footer">
               <router-link :to="{name:'UpdateMeetupEdit', params:{meetupId: meetup._id}}" class="card-footer-item">Edit</router-link>
-              <a class="card-footer-item">Delete</a>
+              <a @click.prevent="($event) => showDeleteMeetup($event,meetup._id)" class="card-footer-item delete-item">Delete</a>
             </footer>
           </div>
           <br/>
@@ -154,6 +154,20 @@ export default {
                 this.$toasted.success("Profile successfully updated",{duration:3000})
                 done()
             })
+        },
+        showDeleteMeetup(e,meetupId){
+          e.stopPropagation()
+          const isConfirm = confirm('Are you sure you want to do this ?')
+
+          if(isConfirm){
+            this.$store.dispatch('deleteMeetup', meetupId)
+            .then((id)=>{
+              console.log(id)
+            })
+            .catch(err=>{
+              console.log(err)
+            })
+          }
         }
     }
 }
@@ -212,5 +226,9 @@ export default {
     margin-bottom: 20px;
     padding: 20px;
     background-color: #F1F1F1;
+  }
+
+  .delete-item{
+    color: red;
   }
 </style>

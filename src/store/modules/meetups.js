@@ -3,6 +3,7 @@ import axiosInstance from '../../service/axios'
 import Vue from 'vue'
 import { applyFilters } from '../../helpers'
 
+
 export const state ={
     meetups:[],
     meetupById:{},
@@ -77,6 +78,13 @@ export const actions ={
              commit('mergeMeetup',updatedMeetup)
              return state.meetup
          })
+     },
+     deleteMeetup({},meetupId){
+        return axiosInstance.delete(`/api/v1/meetups/${meetupId}`)
+        .then((res)=>{
+            const meetupID = res.data
+            return meetupID
+        })
      }
 }
 
